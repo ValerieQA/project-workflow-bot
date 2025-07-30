@@ -1,0 +1,2 @@
+python-telegram-bot==20.6
+notion-client==2.2.1
