@@ -14,13 +14,17 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     message = update.message.text
     ticket_title = f"{user.username or user.first_name}: {message}"
     create_ticket(ticket_title)
-    await update.message.reply_text("✅ Task added to the backlog. We're on it!")
+    await update.message.reply_text(f"✅ Task added to the backlog. We're on it!")
 
-async def main():
+def main():
+  
     app = ApplicationBuilder().token(TELEGRAM_TOKEN).build()
     app.add_handler(MessageHandler(filters.TEXT & (~filters.COMMAND), handle_message))
+    
     print("🤖 Bot is running...")
-    await app.run_polling()
+    
+
+    app.run_polling(drop_pending_updates=True)
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    main()
